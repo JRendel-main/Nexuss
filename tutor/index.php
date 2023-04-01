@@ -10,7 +10,7 @@
         
     <title>Dashboard</title>
     <style>
-        .dashbord-tables,.doctor-heade{
+        .dashbord-tables,.doctor-header{
             animation: transitionIn-Y-over 0.5s;
         }
         .filter-container{

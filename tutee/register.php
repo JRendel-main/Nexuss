@@ -105,7 +105,7 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="3">
-                    <input type="text" name="studentnum" class="input-text" placeholder="Student Number" required pattern="[0-9]{8}">
+                    <input type="text" name="studentnum" class="input-text" placeholder="Student Number">
                 </td>
             </tr>
             <tr>

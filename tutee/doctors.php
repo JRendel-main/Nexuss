@@ -71,7 +71,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                <a href="../../edoc-doctor-appointment-system-main/logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
+                                <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
                                 </td>
                             </tr>
                     </table>
@@ -262,6 +262,7 @@
             $course = $row['course'];
             $year = $row['year'];
 
+
             echo '
                 <div id="popup1" class="overlay">
                     <div class="popup">
@@ -269,7 +270,7 @@
                         <h2></h2>
                         <a class="close" href="doctors.php">&times;</a>
                         <div class="content">
-                            Tutor Details<br>
+                            Request a Schedule!<br>
                             
                         </div>
                         <div style="display: flex;justify-content: center;">
@@ -277,82 +278,38 @@
                         
                             <tr>
                                 <td>
-                                    <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">View Details</p><br><br>
+                                  <p style="padding: 0;margin: 0;text-align: center;font-size: 25px;font-weight: 500;">Tutor Name: '.$fname. ' ' .$lname.'</p><br><br>
                                 </td>
                             </tr>
+                            <form method="post">
+                                <tr>
+                                  <td>
+                                    <p style="padding: 0;margin: 0;text-align: left;font-size: 20px;font-weight: 500;">Date:</p>
+                                    <input type="date" name="date" class="input-text" style="width: 100%;padding: 10px;">
+                                  
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="padding: 0;margin: 0;text-align: left;font-size: 20px;font-weight: 500;">Time:</p>
+                                        <input type="time" name="time" class="input-text" style="width: 100%;padding: 10px;">              
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="padding: 0;margin: 0;text-align: left;font-size: 20px;font-weight: 500;">Topic:</p>
+                                        <input type="text" name="subject" class="input-text" style="width: 100%;padding: 10px;">              
+                                    </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <button type="submit" name="submit" class="login-btn btn-primary-soft btn" style="width: 100%;margin-top: 20px;">Request</button>        
+                                </td>
+</td>
+                                
+                                </tr>
                             
-                            <tr>
-                                
-                                <td class="label-td" colspan="2">
-                                    <label for="name" class="form-label">Fullname: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    '.$fname. ' '. $mname . ' '. $lname.'<br><br>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="Email" class="form-label">Email: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                '.$email.'<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">Sex: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                '.$sex.'<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="Tele" class="form-label">Email: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                '.$email.'<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="spec" class="form-label">Date of Birth: </label>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                            <td class="label-td" colspan="2">
-                            '.$bday.'<br><br>
-                            </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="spec" class="form-label">Course and Year: </label>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                            <td class="label-td" colspan="2">
-                            '.$course. ' ' . $year.'<br><br>
-                            </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <a href="doctors.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a>
-                                
-                                    
-                                </td>
-                
-                            </tr>
+                            </form>
                            
 
                         </table>
@@ -363,6 +320,23 @@
             </div>
             
             ';
+            // get the post
+            if(isset($_POST['submit'])) {
+                $date = $_POST['date'];
+                $time = $_POST['time'];
+                $topic = $_POST['subject'];
+
+                $sql = "INSERT INTO tbl_request(tuteeid, tutorid, topic, timereq, status) VALUES ('$peerod', '$peerid', '$topic', '$date $time', 0)";
+                $result = $database->query($sql);
+                if($result) {
+                    echo "<script>alert('Request Sent!')</script>";
+                    echo "<script>window.location.href='doctors.php'</script>";
+                } else {
+                    echo "<script>alert('Request Failed!')</script>";
+                    echo "<script>window.location.href='doctors.php'</script>";
+                }
+
+            }
 
         }
     }

@@ -27,7 +27,7 @@
     session_start();
 
     if(isset($_SESSION["username"])){
-        if(($_SESSION["username"])=="" or $_SESSION['category']!=2){
+        if(($_SESSION["username"])=="" or $_SESSION['category']!=1){
             header("location: ../login.php");
         }else{
             $username=$_SESSION["username"];
@@ -200,7 +200,7 @@
                             }
 
 
-                            $sql = "SELECT b.requestid, a.fname, a.mname, a.lname, b.topic, b.timereq, b.status, a.course, a.year from tbl_peer a, tbl_request b where a.peerid = b.peerid and status = 0";
+                            $sql = "SELECT b.requestid, b.tutorid, b.tuteeid, a.fname, a.mname, a.lname, b.topic, b.timereq, b.status, a.course, a.year from tbl_peer a, tbl_request b where b.tutorid = '$userid' and b.status = 0 and a.peerid = b.tuteeid";
 
                             $result = mysqli_query($conn, $sql);
                             $resultCheck = mysqli_num_rows($result);

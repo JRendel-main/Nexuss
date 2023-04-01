@@ -31,7 +31,7 @@ date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d');
 $_SESSION["date"]=$date;
 //import database
-include("connect.php");
+include("../connect.php");
 
 if($_POST){
 
