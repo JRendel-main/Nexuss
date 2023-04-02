@@ -74,7 +74,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="../../edoc-doctor-appointment-system-main/logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
+                                    <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
                                 </td>
                             </tr>
                     </table>
@@ -157,7 +157,7 @@
                     <tr>
                         <td >
                             <h3>Welcome!</h3>
-                            <h1><?php echo $username  ?>.</h1>
+                            <h1><?php echo $fname  ?></h1>
                             <p>Haven't any idea about doctors? no problem let's jumping to 
                                 <a href="doctors.php" class="non-style-link"><b>"All Doctors"</b></a> section or 
                                 <a href="schedule.php" class="non-style-link"><b>"Sessions"</b> </a><br>
@@ -171,7 +171,7 @@
                                 
                                 <?php
                                     echo '<datalist id="doctors">';
-                                    $list11 = $database->query("select  docname,docemail from  doctor;");
+                                    $list11 = $database->query("select  fname,email from tbl_peer where category=2;");
     
                                     for ($y=0;$y<$list11->num_rows;$y++){
                                         $row00=$list11->fetch_assoc();

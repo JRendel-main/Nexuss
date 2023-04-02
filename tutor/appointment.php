@@ -17,6 +17,11 @@
         .sub-table{
             animation: transitionIn-Y-bottom 0.5s;
         }
+        .disabled-link{
+            color: #999; /* Style the link to appear disabled */
+            pointer-events: none; /* Disable the click event on the link */
+            cursor: not-allowed;
+        }
 </style>
 </head>
 <body>
@@ -44,8 +49,10 @@
        $userrow = $database->query("select * from tbl_peer where username='$username'");
        $userfetch=$userrow->fetch_assoc();
        $userid= $userfetch["peerid"];
-       $username=$userfetch["username"];
-       $fname=$userfetch["fname"];
+        $email=$userfetch["email"];
+        $fname=$userfetch["fname"];
+        $mname=$userfetch["mname"];
+        $lname=$userfetch["lname"];
     //echo $userid;
     ?>
     <div class="container">
@@ -59,8 +66,8 @@
                                     <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title"><?php echo substr($fname,0,13)  ?>..</p>
-                                    <p class="profile-subtitle"><?php echo substr($username,0,22)  ?></p>
+                                    <p class="profile-title"><?php echo substr($fname .' '. $mname .' '. $lname,0,13)  ?>..</p>
+                                    <p class="profile-subtitle"><?php echo substr($email,0,22)  ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -84,17 +91,17 @@
                 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
+                        <a href="schedule.php" class="non-style-link-menu disabled-link"><div><p class="menu-text disabled-link">My Sessions</p></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-patient">
-                        <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">My Patients</p></a></div>
+                        <a href="patient.php" class="non-style-link-menu disabled-link"><div><p class="menu-text disabled-link">My Patients</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
+                        <a href="settings.php" class="non-style-link-menu disabled-link"><div><p class="menu-text disabled-link">Settings</p></a></div>
                     </td>
                 </tr>
                 

@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="../css/animations.css">  
     <link rel="stylesheet" href="../css/main.css">  
     <link rel="stylesheet" href="../css/admin.css">
-        
-    <title>Dashboard</title>
+
+
+    <title>Tutor - Dashboard</title>
     <style>
         .dashbord-tables,.doctor-header{
             animation: transitionIn-Y-over 0.5s;
@@ -22,6 +23,12 @@
         .doctor-header{
             animation: transitionIn-Y-over 0.5s;
         }
+        .disabled-link{
+            color: #999; /* Style the link to appear disabled */
+            pointer-events: none; /* Disable the click event on the link */
+            cursor: not-allowed;
+        }
+
     </style>
     
     
@@ -83,6 +90,10 @@
                     </table>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2" style="padding:0px;margin:0px;">
+                        <hr class="menu-divider">
+                    </td>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-dashbord menu-active menu-icon-dashbord-active" >
                         <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Dashboard</p></a></div></a>
@@ -90,23 +101,23 @@
                 </tr>
                 <tr class="menu-row">
                     <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Appointments</p></a></div>
+                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Requests</p></a></div>
                     </td>
                 </tr>
                 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
+                        <a href="schedule.php" class="non-style-link-menu disabled-link" disabled><div><p class="menu-text disabled-link">My Sessions</p></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-patient">
-                        <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">My Patients</p></a></div>
+                        <a href="patient.php" class="non-style-link-menu disabled-link"><div><p class="menu-text disabled-link" style="cursor: not-allowed;"disabled>My Patients</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
+                        <a href="settings.php" class="non-style-link-menu disabled-link"><div><p class="menu-text disabled-link" disabled>Settings</p></a></div>
                     </td>
                 </tr>
                 
@@ -139,7 +150,8 @@
                                 $patientrow = $database->query("select  * from  tbl_peer where category=1;");
                                 $doctorrow = $database->query("select  * from  tbl_peer where category=2;");
                                 // $appointmentrow = $database->query("select  * from  appointment where appodate>='$today';");
-                                // $schedulerow = $database->query("select  * from  schedule where scheduledate='$today';");
+                                 $schedulerow = $database->query("select  * from  tbl_request where timereq>='$today'");
+                                    $appointmentrow = $database->query("select * from tbl_request where timereq >='$today' and status=0");
 
 
                                 ?>
@@ -158,12 +170,12 @@
                     <table class="filter-container doctor-header" style="border: none;width:95%" border="0" >
                     <tr>
                         <td >
-                            <h3>Welcome!</h3>
-                            <h1><?php echo $fname  ?>.</h1>
+                            <h3>Welcome to Tutor Dashboard</h3>
+                            <h1><?php echo $fname  ?>!</h1>
                             <p>Thanks for joinnig with us. We are always trying to get you a complete service<br>
                             You can view your dailly schedule, Reach Patients Appointment at home!<br><br>
                             </p>
-                            <a href="appointment.php" class="non-style-link"><button class="btn-primary btn" style="width:30%">View My Appointments</button></a>
+                            <a href="appointment.php" class="non-style-link"><button class="btn-primary btn" style="width:30%">View my Requests</button></a>
                             <br>
                             <br>
                         </td>
@@ -199,7 +211,7 @@
                                                                     <?php    echo $doctorrow->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard">
-                                                                    All Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    All Available Tutors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 </div>
                                                         </div>
                                                                 <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
@@ -212,7 +224,7 @@
                                                                     <?php    echo $patientrow->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard">
-                                                                    All Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    All Available Tutees &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 </div>
                                                         </div>
                                                                 <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/patients-hover.svg');"></div>
@@ -227,7 +239,7 @@
                                                                     <?php    echo $appointmentrow ->num_rows  ?>
                                                                 </div><br>
                                                                 <div class="h3-dashboard" >
-                                                                    NewBooking &nbsp;&nbsp;
+                                                                    New Requests &nbsp;&nbsp;
                                                                 </div>
                                                         </div>
                                                                 <div class="btn-icon-back dashboard-icons" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
@@ -265,7 +277,7 @@
 
 
                             
-                                    <p id="anim" style="font-size: 20px;font-weight:600;padding-left: 40px;">Your Up Coming Sessions until Next week</p>
+                                    <p id="anim" style="font-size: 20px;font-weight:600;padding-left: 40px;">Your Up Coming Tutors until Next week</p>
                                     <center>
                                         <div class="abc scroll" style="height: 250px;padding: 0;margin: 0;">
                                         <table width="85%" class="sub-table scrolldown" border="0" >
@@ -275,16 +287,16 @@
                                                 <th class="table-headin">
                                                     
                                                 
-                                                Session Title
+                                                Topic
                                                 
                                                 </th>
                                                 
                                                 <th class="table-headin">
-                                                Sheduled Date
+                                                Scheduled Date
                                                 </th>
                                                 <th class="table-headin">
                                                     
-                                                     Time
+                                                     Tutee's Name
                                                     
                                                 </th>
                                                     
@@ -294,7 +306,7 @@
                                         
                                             <?php
                                             $nextweek=date("Y-m-d",strtotime("+1 week"));
-                                            $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  where schedule.scheduledate>='$today' and schedule.scheduledate<='$nextweek' order by schedule.scheduledate desc"; 
+                                            $sqlmain= "select b.topic, b.timereq, a.fname from tbl_request b, tbl_peer a where a.peerid = b.tutorid and b.status = '0'";
                                                 $result= $database->query($sqlmain);
                 
                                                 if($result->num_rows==0){
@@ -317,21 +329,20 @@
                                                 else{
                                                 for ( $x=0; $x<$result->num_rows;$x++){
                                                     $row=$result->fetch_assoc();
-                                                    $scheduleid=$row["scheduleid"];
-                                                    $title=$row["title"];
-                                                    $docname=$row["docname"];
-                                                    $scheduledate=$row["scheduledate"];
-                                                    $scheduletime=$row["scheduletime"];
-                                                    $nop=$row["nop"];
+
+                                                    $topic=$row["topic"];
+                                                    $timereq=$row["timereq"];
+                                                    $fname=$row["fname"];
+
                                                     echo '<tr>
                                                         <td style="padding:20px;"> &nbsp;'.
-                                                        substr($title,0,30)
+                                                        substr($topic,0,30)
                                                         .'</td>
                                                         <td style="padding:20px;font-size:13px;">
-                                                        '.substr($scheduledate,0,10).'
+                                                        '.substr($timereq,0,10).'
                                                         </td>
                                                         <td style="text-align:center;">
-                                                            '.substr($scheduletime,0,5).'
+                                                            '.substr($fname,0,5).'
                                                         </td>
 
                 
